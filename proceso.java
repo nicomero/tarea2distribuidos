@@ -3,7 +3,7 @@
 public class proceso {
 
     int id;
-    static int n = 0;
+    static int n;
     int initialDelay;
     boolean bearer;
     static boolean hayBearer = false;
@@ -12,15 +12,15 @@ public class proceso {
     public proceso(int id, int n, int initialDelay, boolean bearer){
 
         this.id = id ;
-        this.n = n ;
+        proceso.n = n ;
         this.arrRN = new int[n] ;
         this.initialDelay = initialDelay ;
-        if (this.hayBearer){
+        if (proceso.hayBearer){
             this.bearer = false;
         }
         else{
             this.bearer = bearer;
-            this.hayBearer = bearer;
+            proceso.hayBearer = bearer;
         }
     }
 

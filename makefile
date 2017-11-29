@@ -1,5 +1,4 @@
-JFLAGS = -g
-#-Xlint
+JFLAGS = -g -Xlint
 JC = javac
 JVM = java
 PUERTO = 12345
