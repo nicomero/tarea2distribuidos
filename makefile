@@ -12,6 +12,7 @@ DIRECCION = localhost
 	$(JC) $(JFLAGS) $*.java
 CLASSES = \
 	proceso.java \
+	token.java \
 
 MAIN = Server
 
