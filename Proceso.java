@@ -1,6 +1,6 @@
 
 
-public class proceso {
+public class Proceso {
 
     int id;
     static int n;
@@ -9,18 +9,18 @@ public class proceso {
     static boolean hayBearer = false;
     int[] arrRN; //ultimo request recibido por el proceso j
 
-    public proceso(int id, int n, int initialDelay, boolean bearer){
+    public Proceso(int id, int n, int initialDelay, boolean bearer){
 
         this.id = id ;
-        proceso.n = n ;
+        Proceso.n = n ;
         this.arrRN = new int[n] ;
         this.initialDelay = initialDelay ;
-        if (proceso.hayBearer){
+        if (Proceso.hayBearer){
             this.bearer = false;
         }
         else{
             this.bearer = bearer;
-            proceso.hayBearer = bearer;
+            Proceso.hayBearer = bearer;
         }
     }
 
