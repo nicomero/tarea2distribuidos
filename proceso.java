@@ -7,11 +7,13 @@ public class proceso {
     int initialDelay;
     boolean bearer;
     static boolean hayBearer = false;
+    int[] arrRN;
 
     public proceso(int id, int n, int initialDelay, boolean bearer){
 
         this.id = id ;
         this.n = n ;
+        this.arrRN = new int[n] ;
         this.initialDelay = initialDelay ;
         if (this.hayBearer){
             this.bearer = false;
