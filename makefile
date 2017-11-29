@@ -12,7 +12,7 @@ DIRECCION = localhost
 CLASSES = \
 	Proceso.java \
 	Token.java \
-	Interfaz.java \
+	Semaforo.java \
 
 MAIN = Server
 
