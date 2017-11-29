@@ -7,7 +7,7 @@ public class proceso {
     int initialDelay;
     boolean bearer;
     static boolean hayBearer = false;
-    int[] arrRN;
+    int[] arrRN; //ultimo request recibido por el proceso j
 
     public proceso(int id, int n, int initialDelay, boolean bearer){
 
