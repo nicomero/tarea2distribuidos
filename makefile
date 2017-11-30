@@ -10,9 +10,9 @@ DIRECCION = localhost
 .java.class:
 	$(JC) $(JFLAGS) $*.java
 CLASSES = \
-	Proceso.java \
 	Token.java \
 	Semaforo.java \
+	main.java \
 
 MAIN = Server
 
