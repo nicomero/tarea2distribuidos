@@ -15,10 +15,10 @@ public class main {
         boolean bearer = Boolean.valueOf(args[3]);
         int[] arrRN = new int[n] ; //ultimo request recibido por el proceso j
 
-        detectarMulti();
+        detectarMulti();//detecta mensaje en multicast
 
         try{
-          Interfaz obj = (Interfaz) Naming.lookup("/HelloServer");         //objectname in registry
+          Interfaz obj = (Interfaz) Naming.lookup("/HelloServer");
 
           obj.request(id, 2);
 
