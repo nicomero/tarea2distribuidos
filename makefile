@@ -14,6 +14,7 @@ CLASSES = \
 	Semaforo.java \
 	main.java \
 	Servidor.java \
+	Interfaz.java \
 
 MAIN = Server
 

@@ -14,13 +14,16 @@ public class main {
         int initialDelay = Integer.parseInt(args[2]);
         boolean bearer = Boolean.valueOf(args[3]);
         int[] arrRN = new int[n] ; //ultimo request recibido por el proceso j
+        Token toquen;
 
         detectarMulti();//detecta mensaje en multicast
 
-        try{
-          Interfaz obj = (Interfaz) Naming.lookup("/HelloServer");
 
-          obj.request(id, 2);
+
+        try{
+          Interfaz funciones = (Interfaz) Naming.lookup("/HelloServer");//aca se obtienen las funciones
+
+          funciones.request(id, 2);
 
        }catch (Exception e){
           System.out.println("HelloClient exception: " + e.getMessage());
