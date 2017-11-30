@@ -12,8 +12,8 @@ public class main {
         boolean bearer = Boolean.valueOf(args[3]);
         int[] arrRN = new int[n] ; //ultimo request recibido por el proceso j
 
-        
 
+        
 
     }
 

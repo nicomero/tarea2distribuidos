@@ -13,6 +13,7 @@ CLASSES = \
 	Token.java \
 	Semaforo.java \
 	main.java \
+	Servidor.java \
 
 MAIN = Server
 
