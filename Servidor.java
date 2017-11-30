@@ -31,4 +31,21 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
     }
 
 
+    public static void main(String args[])
+    {
+        try
+        {
+            Servidor obj = new Servidor();
+            // Bind this object instance to the name "HelloServer"
+            Naming.rebind("HelloServer", obj);
+        }
+        catch (Exception e)
+        {
+            System.out.println("HelloImpl err: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+
+
 }
