@@ -15,6 +15,7 @@ public class main {
         boolean bearer = Boolean.valueOf(args[3]);
         int[] arrRN = new int[n] ; //ultimo request recibido por el proceso j
         Token toquen;
+        DatagramSocket socket = new DatagramSocket(id+4000);
 
         detectarMulti();//detecta mensaje en multicast
 
@@ -23,6 +24,8 @@ public class main {
         try{
           Interfaz funciones = (Interfaz) Naming.lookup("/HelloServer");//aca se obtienen las funciones
 
+
+          Thread.sleep(id);//pausar
           funciones.request(id, 2);
 
        }catch (Exception e){
