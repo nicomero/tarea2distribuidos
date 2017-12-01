@@ -17,25 +17,31 @@ public class main {
         Token toquen;
         DatagramSocket socket = new DatagramSocket(id+4000);
 
-        detectarMulti();//detecta mensaje en multicast
+        if(bearer){
+            toquen = new  Token(n);
+        }
 
-
+        detectarMulti(id);//detecta mensaje en multicast
 
         try{
-          Interfaz funciones = (Interfaz) Naming.lookup("/HelloServer");//aca se obtienen las funciones
-
-
-          Thread.sleep(id);//pausar
-          funciones.request(id, 2);
-
+            Interfaz funciones = (Interfaz) Naming.lookup("/HelloServer");//aca se obtienen las funciones
+/*
+            if(!bearer){
+                funciones.request(id, 2);
+                funciones.waitToken();
+            }
+            Thread.sleep(id);//pausar
+            funciones.takeToken(toquen);
+*/
+            funciones.request(id,2);
        }catch (Exception e){
-          System.out.println("HelloClient exception: " + e.getMessage());
-          e.printStackTrace();
+           System.out.println("HelloClient exception: " + e.getMessage());
+           e.printStackTrace();
        }
 
     }
 
-    public static void detectarMulti(){
+    public static void detectarMulti(int id){
     		Thread t = new Thread(new Runnable(){
     			public void run(){
 
@@ -49,7 +55,11 @@ public class main {
         				while(true){
                             socket.receive(packet);
                             String received = new String(packet.getData(), 0, packet.getLength());
-                            System.out.println(received);
+
+                            int recibID = Integer.parseInt(received);
+                            if (recibID != id){
+                                System.out.println(received);
+                            }
         				}
                     }catch(IOException e){
                         System.out.println("detectarMulti");

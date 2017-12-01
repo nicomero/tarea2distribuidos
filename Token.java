@@ -13,4 +13,17 @@ public class Token implements Serializable{
 
     }
 
+    public int siguienteQ(){
+
+        int next = colaQ.poll();
+        return  next;
+    }
+
+    public void agregarQ(int id){
+
+        colaQ.add(id);
+
+        return;
+    }
+
 }

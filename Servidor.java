@@ -15,7 +15,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
         try{
             byte[] buf = new byte[256];
 
-            buf = "afsdfdasdfas".getBytes();
+            buf = Integer.toString(id).getBytes();
 
             InetAddress group = InetAddress.getByName("230.0.0.1");
             DatagramSocket socket = new DatagramSocket();
@@ -52,6 +52,29 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
             e.printStackTrace();
         }
         return null;
+    }
+
+
+
+    public void takeToken(Token toquen){
+
+        try{
+            int proximo = toquen.siguienteQ();
+
+            ByteArrayOutputStream serial = new ByteArrayOutputStream();
+            ObjectOutputStream os = new ObjectOutputStream(serial);
+            os.writeObject(toquen);
+            os.close();
+
+            byte[] bufMsg = serial.toByteArray();
+            InetAddress address = InetAddress.getByName("127.0.0.1");
+            DatagramSocket socket = new DatagramSocket();
+            DatagramPacket packetRequest = new DatagramPacket(bufMsg, bufMsg.length, address, proximo+4000);
+            socket.send(packetRequest);
+        }catch(IOException e){
+            System.out.println("takeToken");
+            e.printStackTrace();
+        }
     }
 
 
