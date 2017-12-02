@@ -21,6 +21,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
             DatagramSocket socket = new DatagramSocket();
 
             DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 5555);
+            System.out.println("main: request realizada");
 
             socket.send(packet);
         }catch(IOException e) {
@@ -42,6 +43,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
                 ObjectInputStream is = new ObjectInputStream(serializado);
                 serverResponse = (Token)is.readObject();
                 is.close();
+                System.out.println("main: token obtenido");
                 return serverResponse;
             }catch(ClassNotFoundException e){
                 System.out.println("waitToken class not found");
@@ -71,6 +73,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
             DatagramSocket socket = new DatagramSocket();
             DatagramPacket packetRequest = new DatagramPacket(bufMsg, bufMsg.length, address, proximo+4000);
             socket.send(packetRequest);
+            System.out.println("main: token enviado");
         }catch(IOException e){
             System.out.println("takeToken");
             e.printStackTrace();
@@ -85,6 +88,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
             Servidor obj = new Servidor();
             // Bind this object instance to the name "HelloServer"
             Naming.rebind("HelloServer", obj);
+            System.out.println("Servidor: funciones en registry");
         }
         catch (Exception e)
         {

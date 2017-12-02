@@ -17,25 +17,34 @@ public class main {
         Token toquen = null;
         DatagramSocket socket = new DatagramSocket(id+4000);
 
+        System.out.println("Semaforo en VERDE");
+
         if(bearer){ //si parte con toquen o no
             toquen = new  Token(n);
+            System.out.println("main: Creando Token");
+
         }
 
-        detectarMulti(id);//detecta mensaje en multicast
+        detectarMulti(id, arrRN);//detecta mensaje en multicast
 
         try{
             Interfaz funciones = (Interfaz) Naming.lookup("/HelloServer");//aca se obtienen las funciones
 
             if(!bearer){    //requesting critical section
+                System.out.println("Semaforo en AMARILLO");
                 arrRN[id] += 1;
-                funciones.request(id, 2);
+                funciones.request(id, arrRN[id]);
                 toquen = funciones.waitToken(socket);
             }
             Thread.sleep(id);//pausar
 
+            System.out.println("Semaforo en ROJO");
+
             //releasing the cs
+            System.out.println("main: soltando Token");
             toquen.setLN(id, arrRN[id]);
             toquen.updateQ(arrRN);
+            System.out.println("Semaforo en VERDE");
             funciones.takeToken(toquen);
 
        }catch (Exception e){
@@ -45,11 +54,12 @@ public class main {
 
     }
 
-    public static void detectarMulti(int id){ //receiving a request
+    public static void detectarMulti(int id, int[] rn){ //receiving a request
     		Thread t = new Thread(new Runnable(){
     			public void run(){
 
                     try{
+                        String[] sublista;
                         MulticastSocket socket = new MulticastSocket(5555);
 
                         byte[] buf = new byte[256];
@@ -60,10 +70,17 @@ public class main {
         				while(true){
                             socket.receive(packet);
                             String received = new String(packet.getData(), 0, packet.getLength());
+                            sublista = received.split(",");
 
-                            int recibID = Integer.parseInt(received);
+                            int recibID = Integer.parseInt(sublista[0]);
+                            int recibSEQ = Integer.parseInt(sublista[1]);
+
                             if (recibID != id){
-                                System.out.println(received);
+                                System.out.println("Desde " + sublista[0] + " se recibio " + sublista[1]);
+
+                                if (recibSEQ > rn[recibID]){
+                                    rn[recibID] = recibSEQ;
+                                }
                             }
         				}
                     }catch(IOException e){
