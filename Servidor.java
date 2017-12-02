@@ -14,8 +14,8 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
     public void request(int id, int req){
         try{
             byte[] buf = new byte[256];
-
-            buf = Integer.toString(id).getBytes();
+            String mensaje = Integer.toString(id) + "," + Integer.toString(req);
+            buf = mensaje.getBytes();
 
             InetAddress group = InetAddress.getByName("230.0.0.1");
             DatagramSocket socket = new DatagramSocket();
@@ -32,7 +32,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
 
     public Token waitToken(DatagramSocket socket){
 
-
+        Token serverResponse;
         try{
             byte[] buf = new byte[256];
             DatagramPacket packet = new DatagramPacket(buf, buf.length);
@@ -40,7 +40,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
             try{
                 ByteArrayInputStream serializado = new ByteArrayInputStream(buf);
                 ObjectInputStream is = new ObjectInputStream(serializado);
-                Token serverResponse = (Token)is.readObject();
+                serverResponse = (Token)is.readObject();
                 is.close();
                 return serverResponse;
             }catch(ClassNotFoundException e){

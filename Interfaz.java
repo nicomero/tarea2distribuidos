@@ -1,9 +1,14 @@
 import java.rmi.Remote;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
 public interface Interfaz extends Remote {
     void request(int id, int req) throws RemoteException;
-    //void waitToken() throws RemoteException;
-    //void takeToken(Token token) throws RemoteException;
+    Token waitToken(DatagramSocket socket) throws RemoteException;
+    void takeToken(Token toquen) throws RemoteException;
     //void kill() throws RemoteException;
 }

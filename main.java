@@ -14,10 +14,10 @@ public class main {
         int initialDelay = Integer.parseInt(args[2]);
         boolean bearer = Boolean.valueOf(args[3]);
         int[] arrRN = new int[n] ; //ultimo request recibido por el proceso j
-        Token toquen;
+        Token toquen = null;
         DatagramSocket socket = new DatagramSocket(id+4000);
 
-        if(bearer){
+        if(bearer){ //si parte con toquen o no
             toquen = new  Token(n);
         }
 
@@ -25,15 +25,19 @@ public class main {
 
         try{
             Interfaz funciones = (Interfaz) Naming.lookup("/HelloServer");//aca se obtienen las funciones
-/*
-            if(!bearer){
+
+            if(!bearer){    //requesting critical section
+                arrRN[id] += 1;
                 funciones.request(id, 2);
-                funciones.waitToken();
+                toquen = funciones.waitToken(socket);
             }
             Thread.sleep(id);//pausar
+
+            //releasing the cs
+            toquen.setLN(id, arrRN[id]);
+            toquen.updateQ(arrRN);
             funciones.takeToken(toquen);
-*/
-            funciones.request(id,2);
+
        }catch (Exception e){
            System.out.println("HelloClient exception: " + e.getMessage());
            e.printStackTrace();
@@ -41,7 +45,7 @@ public class main {
 
     }
 
-    public static void detectarMulti(int id){
+    public static void detectarMulti(int id){ //receiving a request
     		Thread t = new Thread(new Runnable(){
     			public void run(){
 
@@ -52,6 +56,7 @@ public class main {
                         InetAddress address = InetAddress.getByName("230.0.0.1");
                         socket.joinGroup(address);
                         DatagramPacket packet = new DatagramPacket(buf, buf.length);
+
         				while(true){
                             socket.receive(packet);
                             String received = new String(packet.getData(), 0, packet.getLength());

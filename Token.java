@@ -15,14 +15,33 @@ public class Token implements Serializable{
 
     public int siguienteQ(){
 
-        int next = colaQ.poll();
+        int next = this.colaQ.poll();
         return  next;
     }
 
     public void agregarQ(int id){
 
-        colaQ.add(id);
+        this.colaQ.add(id);
 
+        return;
+    }
+
+    public void setLN(int id, int num){
+
+        this.arrLN[id] = num;
+        return;
+    }
+
+    public void updateQ(int[] rn){
+        int k=0;
+        for (int i : rn){
+            if (i == this.arrLN[k]+1){
+                if (!this.colaQ.contains(i)){
+                    this.colaQ.add(i);
+                }
+            }
+            k +=1;
+        }
         return;
     }
 
