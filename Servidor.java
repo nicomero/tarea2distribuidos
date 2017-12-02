@@ -14,7 +14,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
     public void request(int id, int req){
         try{
             byte[] buf = new byte[256];
-            String mensaje = Integer.toString(id) + "," + Integer.toString(req);
+            String mensaje = Integer.toString(id);// + "," + Integer.toString(req);
             buf = mensaje.getBytes();
 
             InetAddress group = InetAddress.getByName("230.0.0.1");
