@@ -89,6 +89,26 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
         }
     }
 
+    public void kill(){
+        try{
+            byte[] buf = new byte[256];
+            String mensaje = "-1,0";
+            buf = mensaje.getBytes();
+
+            InetAddress group = InetAddress.getByName("230.0.0.1");
+            DatagramSocket socket = new DatagramSocket();
+
+            DatagramPacket packet = new DatagramPacket(buf, buf.length, group, 5555);
+            System.out.println("kill: finalizando procesos");
+
+            socket.send(packet);
+        }catch(IOException e) {
+        			System.out.println("request");
+                    e.printStackTrace();
+                }
+
+    }
+
 
     public static void main(String args[])
     {

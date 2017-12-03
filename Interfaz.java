@@ -10,5 +10,5 @@ public interface Interfaz extends Remote {
     void request(int id, int req) throws RemoteException;
     Token waitToken(int id) throws RemoteException;
     void takeToken(Token toquen) throws RemoteException;
-    //void kill() throws RemoteException;
+    void kill() throws RemoteException;
 }

@@ -66,6 +66,9 @@ public class main {
                 }
                 funciones.takeToken(toquen);
             }
+            else{
+                funciones.kill();
+            }
             System.out.println("Este proceso ya hizo su parte");
 
        }catch (Exception e){
@@ -95,6 +98,10 @@ public class main {
 
                             int recibID = Integer.parseInt(sublista[0]);
                             int recibSEQ = Integer.parseInt(sublista[1]);
+
+                            if (recibID == -1){
+                                break;
+                            }
 
                             if (recibID != id){
                                 System.out.println("Desde " + sublista[0] + " se recibio " + sublista[1]);
