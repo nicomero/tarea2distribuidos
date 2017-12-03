@@ -7,13 +7,20 @@ import java.rmi.RemoteException;
 
 public class main {
 
+    private static class Rn {
+        public int[] arrRN;
+    }
+
     public static void main(String[] args) throws IOException {
 
         int id = Integer.parseInt(args[0]);
         int n = Integer.parseInt(args[1]);
         int initialDelay = Integer.parseInt(args[2]);
         boolean bearer = Boolean.valueOf(args[3]);
-        int[] arrRN = new int[n] ; //ultimo request recibido por el proceso j
+
+        final Rn arreglo = new Rn();
+
+        arreglo.arrRN = new int[n] ; //ultimo request recibido por el proceso j
         Token toquen = null;
 
 
@@ -25,15 +32,15 @@ public class main {
 
         }
 
-        detectarMulti(id, arrRN);//detecta mensaje en multicast
+        detectarMulti(id, arreglo.arrRN);//detecta mensaje en multicast
 
         try{
             Interfaz funciones = (Interfaz) Naming.lookup("/HelloServer");//aca se obtienen las funciones
 
             if(!bearer){    //requesting critical section
                 System.out.println("Semaforo en AMARILLO");
-                arrRN[id] += 1;
-                funciones.request(id, arrRN[id]);
+                arreglo.arrRN[id] += 1;
+                funciones.request(id, arreglo.arrRN[id]);
                 System.out.println("request enviada");
                 toquen = funciones.waitToken(id);
             }
@@ -45,12 +52,12 @@ public class main {
             }
 
             System.out.println("Semaforo en ROJO");
-            System.out.println("arrRN del proceso" + Arrays.toString(arrRN));
+            System.out.println("arrRN del proceso" + Arrays.toString(arreglo.arrRN));
 
             //releasing the cs
             System.out.println("main: soltando Token");
-            toquen.setLN(id, arrRN[id]);
-            toquen.updateQ(arrRN);
+            toquen.setLN(id, arreglo.arrRN[id]);
+            toquen.updateQ(arreglo.arrRN);
             toquen.printDatos();
             System.out.println("Semaforo en VERDE");
             funciones.takeToken(toquen);
