@@ -15,7 +15,7 @@ public class main {
         boolean bearer = Boolean.valueOf(args[3]);
         int[] arrRN = new int[n] ; //ultimo request recibido por el proceso j
         Token toquen = null;
-        DatagramSocket socket = new DatagramSocket(id+4000);
+
 
         System.out.println("Semaforo en VERDE");
 
@@ -34,16 +34,24 @@ public class main {
                 System.out.println("Semaforo en AMARILLO");
                 arrRN[id] += 1;
                 funciones.request(id, arrRN[id]);
-                toquen = funciones.waitToken(socket);
+                System.out.println("request enviada");
+                toquen = funciones.waitToken(id);
             }
-            Thread.sleep(id);//pausar
+            try{
+                Thread.sleep(initialDelay);
+            }catch( InterruptedException e ){
+                System.out.println("sleep");
+                e.printStackTrace();
+            }
 
             System.out.println("Semaforo en ROJO");
+            System.out.println("arrRN del proceso" + Arrays.toString(arrRN));
 
             //releasing the cs
             System.out.println("main: soltando Token");
             toquen.setLN(id, arrRN[id]);
             toquen.updateQ(arrRN);
+            toquen.printDatos();
             System.out.println("Semaforo en VERDE");
             funciones.takeToken(toquen);
 

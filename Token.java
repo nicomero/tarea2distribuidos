@@ -1,6 +1,7 @@
 import java.util.LinkedList;
 import java.util.Queue;
 import java.io.Serializable;
+import java.util.Arrays;
 
 public class Token implements Serializable{
 
@@ -37,11 +38,18 @@ public class Token implements Serializable{
         for (int i : rn){
             if (i == this.arrLN[k]+1){
                 if (!this.colaQ.contains(i)){
-                    this.colaQ.add(i);
+                    this.colaQ.add(k);
                 }
             }
             k +=1;
         }
+        return;
+    }
+
+    public void printDatos(){
+
+        System.out.println("la cola del toquen " + this.colaQ);
+        System.out.println("arrLN del toquen" + Arrays.toString(this.arrLN));
         return;
     }
 

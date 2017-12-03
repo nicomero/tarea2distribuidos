@@ -14,7 +14,7 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
     public void request(int id, int req){
         try{
             byte[] buf = new byte[256];
-            String mensaje = Integer.toString(id);// + "," + Integer.toString(req);
+            String mensaje = Integer.toString(id)+ "," + Integer.toString(req);
             buf = mensaje.getBytes();
 
             InetAddress group = InetAddress.getByName("230.0.0.1");
@@ -31,19 +31,26 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
 
     }
 
-    public Token waitToken(DatagramSocket socket){
+    public Token waitToken(int id){
 
         Token serverResponse;
+        System.out.println("iniciando espera");
         try{
+
+
             byte[] buf = new byte[256];
+            DatagramSocket socket = new DatagramSocket(id+4000);
             DatagramPacket packet = new DatagramPacket(buf, buf.length);
             socket.receive(packet);
+
+
             try{
                 ByteArrayInputStream serializado = new ByteArrayInputStream(buf);
                 ObjectInputStream is = new ObjectInputStream(serializado);
                 serverResponse = (Token)is.readObject();
                 is.close();
                 System.out.println("main: token obtenido");
+                serverResponse.printDatos();
                 return serverResponse;
             }catch(ClassNotFoundException e){
                 System.out.println("waitToken class not found");
@@ -61,7 +68,9 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
     public void takeToken(Token toquen){
 
         try{
+            toquen.printDatos();
             int proximo = toquen.siguienteQ();
+            System.out.println("el siguiente es: "+proximo);
 
             ByteArrayOutputStream serial = new ByteArrayOutputStream();
             ObjectOutputStream os = new ObjectOutputStream(serial);

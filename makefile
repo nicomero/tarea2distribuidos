@@ -11,10 +11,9 @@ DIRECCION = localhost
 	$(JC) $(JFLAGS) $*.java
 CLASSES = \
 	Token.java \
-	Semaforo.java \
-	main.java \
-	Servidor.java \
 	Interfaz.java \
+	Servidor.java \
+	main.java \
 
 MAIN = Server
 
