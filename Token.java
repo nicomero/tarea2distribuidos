@@ -53,4 +53,19 @@ public class Token implements Serializable{
         return;
     }
 
+    public int listos(){
+        int sum = 0;
+        for(int i : this.arrLN) {
+            sum += i;
+        }
+        return sum;
+    }
+
+    public boolean check(){
+        boolean esIgual;
+        esIgual = this.colaQ.peek() == null;
+
+        return esIgual;
+    }
+
 }

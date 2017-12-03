@@ -60,7 +60,13 @@ public class main {
             toquen.updateQ(arreglo.arrRN);
             toquen.printDatos();
             System.out.println("Semaforo en VERDE");
-            funciones.takeToken(toquen);
+            if (toquen.listos() != n-1){
+                while(toquen.check()){
+                    toquen.updateQ(arreglo.arrRN);
+                }
+                funciones.takeToken(toquen);
+            }
+            System.out.println("Este proceso ya hizo su parte");
 
        }catch (Exception e){
            System.out.println("HelloClient exception: " + e.getMessage());
