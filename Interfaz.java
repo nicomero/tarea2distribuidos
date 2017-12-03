@@ -1,3 +1,12 @@
+/*
+ * CInterfaz
+ *
+ * 1.0.0
+ *
+ * 2017, Diciembre 3
+ * 
+ */
+
 import java.rmi.Remote;
 import java.rmi.Naming;
 import java.rmi.RemoteException;

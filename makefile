@@ -13,9 +13,9 @@ CLASSES = \
 	Token.java \
 	Interfaz.java \
 	Servidor.java \
-	main.java \
+	Main.java \
 
-MAIN = main
+MAIN = Main
 
 #default: classes
 #	$(JVM) $(MAIN)

@@ -30,4 +30,6 @@ se ejecuta
 ```
 ## Estrategia
 
-El progrma implementa el algoritmo suzuki-kasami, en el cual se controla el acceso a secciones criticas (CS) por procesos remotos mediante el paso de un token.
+El programa implementa el algoritmo suzuki-kasami, en el cual se controla el acceso a secciones criticas (CS) por procesos remotos mediante el paso de un token.
+
+Se hace el supuesto de que todos los procesos han sido creados antes de empezar a hacer peticiones
