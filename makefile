@@ -1,10 +1,10 @@
 JFLAGS = -g -Xlint
 JC = javac
 JVM = java
-PUERTO = 12345
-POLITICA = -Djava.security.policy
-ARCHIVO = permisos
-DIRECCION = localhost
+ID = 0
+N = 3
+DELAY = 10000
+BEARER = true
 
 .SUFFIXES: .java .class
 .java.class:
@@ -15,7 +15,7 @@ CLASSES = \
 	Servidor.java \
 	main.java \
 
-MAIN = Server
+MAIN = main
 
 #default: classes
 #	$(JVM) $(MAIN)
@@ -23,10 +23,10 @@ MAIN = Server
 classes: $(CLASSES:.java=.class)
 
 run: classes
-ifeq ($(MAIN),Client)
-	$(JVM) $(POLITICA)=$(ARCHIVO) $(MAIN) $(DIRECCION) $(PUERTO)
+ifeq ($(MAIN),Servidor)
+	$(JVM) $(MAIN)
 else
-	$(JVM) $(POLITICA)=$(ARCHIVO) $(MAIN) $(PUERTO)
+	$(JVM) $(MAIN) $(ID) $(N) $(DELAY) $(BEARER)
 endif
 
 clean:
