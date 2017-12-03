@@ -22,7 +22,7 @@ Para ejecutar el servidor
 ```
 Para ejecutar un proceso de la forma
 
-**process <id> <n> <initialDelay> <Bearer>**
+**process id n initialDelay Bearer**
 
 se ejecuta
 ```bash
