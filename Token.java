@@ -35,9 +35,10 @@ public class Token implements Serializable{
 
     public void updateQ(int[] rn){
         int k=0;
+
         for (int i : rn){
             if (i == this.arrLN[k]+1){
-                if (!this.colaQ.contains(i)){
+                if (!this.colaQ.contains(k)){
                     this.colaQ.add(k);
                 }
             }
