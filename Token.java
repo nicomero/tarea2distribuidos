@@ -103,4 +103,14 @@ public class Token implements Serializable{
         return esIgual;
     }
 
+    public Queue<Integer> getQ(){
+
+        return this.colaQ;
+    }
+
+    public String getLN(){
+
+        return Arrays.toString(this.arrLN);
+    }
+
 }

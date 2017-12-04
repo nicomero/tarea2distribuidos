@@ -151,6 +151,9 @@ public class Servidor extends UnicastRemoteObject implements Interfaz{
             System.out.println( "HelloImpl err: " + e.getMessage() );
             e.printStackTrace();
         }
+
+
+
     }
 
 

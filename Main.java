@@ -34,6 +34,8 @@ public class Main {
 
         detectarMulti(id, arreglo.arrRN);//detecta mensaje en multicast
 
+        crear(id, arreglo.arrRN, "VERDE");
+
         try{  //Da tiempo para crear los otros procesos
             Thread.sleep(10000);
         }catch( InterruptedException e ){
@@ -57,6 +59,7 @@ public class Main {
                 arreglo.arrRN[id] += 1;
                 funciones.request(id, arreglo.arrRN[id]);
                 System.out.println("request enviada");
+                crear(id, arreglo.arrRN, "VERDE");
                 toquen = funciones.waitToken(id);
             }
 
@@ -68,6 +71,9 @@ public class Main {
             }
 
             System.out.println("Semaforo en ROJO");
+
+            escribir(id, arreglo.arrRN, toquen, "ROJO");
+
             System.out.println("arrRN del proceso" + Arrays.toString(arreglo.arrRN));
 
             /**releasing the cs**/
@@ -76,6 +82,7 @@ public class Main {
             toquen.setLN(id, arreglo.arrRN[id]); //indicar al toquen que se hizo la CS
             toquen.updateQ(arreglo.arrRN); //agregar a la cola los procesos que piden la CS
             toquen.printDatos();
+            escribir(id, arreglo.arrRN, toquen, "VERDE");
             System.out.println("Semaforo en VERDE");
 
             /** Mientras no todos los procesos
@@ -146,6 +153,79 @@ public class Main {
 		});
 		t.start();
 	}//end detectarMulti
+
+
+    /**
+    *ESte metodo permita escribir en un archivo ya existente
+    */
+    public static void escribir(int id, int[] rn, Token toquen, String color){
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        java.util.Date date = new java.util.Date();
+        String archivo = "log" + Integer.toString(id) + ".txt";
+        try
+        {
+            fichero = new FileWriter(archivo, true);
+            pw = new PrintWriter(fichero);
+
+
+            pw.println("************** " + date + " PROCESO " + id +"*******************");
+            pw.println("Color semaforo: +" + color);
+            pw.println("Arreglo rn del proceso:" + Arrays.toString(rn));
+            pw.println("El arreglo LN del toquen" + toquen.getLN());
+            pw.println("La cola del toquen" + toquen.getQ());
+            pw.println("_________________________________________________________");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+
+    }
+
+    /**
+    *ESte metodo permita escribir en un archivo que no existe
+    */
+    public static void crear(int id, int[] rn, String color){
+
+        FileWriter fichero = null;
+        PrintWriter pw = null;
+        java.util.Date date = new java.util.Date();
+        String archivo = "log" + Integer.toString(id) + ".txt";
+        try
+        {
+            fichero = new FileWriter(archivo);
+            pw = new PrintWriter(fichero);
+
+
+            pw.println("************** " + date + " PROCESO " + id +"*******************");
+            pw.println("Color semaforo: +" + color);
+            pw.println("Arreglo rn del proceso:" + Arrays.toString(rn));
+            pw.println("_________________________________________________________");
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+           try {
+           // Nuevamente aprovechamos el finally para
+           // asegurarnos que se cierra el fichero.
+           if (null != fichero)
+              fichero.close();
+           } catch (Exception e2) {
+              e2.printStackTrace();
+           }
+        }
+
+    }
 
 
 }
